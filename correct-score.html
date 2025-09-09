@@ -6,13 +6,11 @@
     <title>ORACLE - Correct Score</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-    <header class="main-header">ORACLE</header>
-    <nav class="main-nav">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="fixed-draw.html" class="nav-link">Fixed Draw</a>
-        <a href="correct-score.html" class="nav-link active">Correct Score</a>
-    </nav>
+<body class="dark-theme">
+    <header class="main-header">
+        <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <span class="site-title">ORACLE</span>
+    </header>
     <div id="password-prompt" class="section active">
         <div class="password-box">
             <h2>Enter Password to Access Correct Score Tips</h2>
@@ -35,6 +33,11 @@
             <div id="history-matches"></div>
         </div>
     </div>
+    <nav class="main-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="fixed-draw.html" class="nav-link">Fixed Draw</a>
+        <a href="correct-score.html" class="nav-link active">Correct Score</a>
+    </nav>
     <script src="scripts.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -177,6 +180,8 @@
                 setupTabs();
                 setupCopyCode();
             }
+
+            setupThemeToggle();
         });
     </script>
 </body>

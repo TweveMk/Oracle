@@ -6,19 +6,22 @@
     <title>ORACLE - Betting Tips</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-    <header class="main-header">ORACLE</header>
+<body class="dark-theme">
+    <header class="main-header">
+        <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <span class="site-title">ORACLE</span>
+    </header>
+    <div class="welcome-section">
+        <h1>Welcome to ORACLE</h1>
+        <p>Your trusted source for premium Fixed Draw and Correct Score betting tips.</p>
+        <p>Select a section below to explore today's tips or historical results.</p>
+        <p class="date-section" id="current-date"></p>
+    </div>
     <nav class="main-nav">
         <a href="index.html" class="nav-link active">Home</a>
         <a href="fixed-draw.html" class="nav-link">Fixed Draw</a>
         <a href="correct-score.html" class="nav-link">Correct Score</a>
     </nav>
-    <div class="welcome-section">
-        <h1>Welcome to ORACLE</h1>
-        <p>Your trusted source for premium Fixed Draw and Correct Score betting tips.</p>
-        <p>Select a section above to explore today's tips or historical results.</p>
-        <p class="date-section" id="current-date"></p>
-    </div>
     <script src="scripts.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -30,6 +33,7 @@
                     year: 'numeric',
                     timeZone: 'Africa/Nairobi'
                 }).toUpperCase();
+            setupThemeToggle();
         });
     </script>
 </body>

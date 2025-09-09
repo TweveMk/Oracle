@@ -6,13 +6,11 @@
     <title>ORACLE - Fixed Draw</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-    <header class="main-header">ORACLE</header>
-    <nav class="main-nav">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="fixed-draw.html" class="nav-link active">Fixed Draw</a>
-        <a href="correct-score.html" class="nav-link">Correct Score</a>
-    </nav>
+<body class="dark-theme">
+    <header class="main-header">
+        <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <span class="site-title">ORACLE</span>
+    </header>
     <nav class="tab-nav">
         <button class="tab-btn active" data-tab="today">Today's Tips</button>
         <button class="tab-btn" data-tab="history">History</button>
@@ -24,6 +22,11 @@
     <div id="history" class="section">
         <div id="history-matches"></div>
     </div>
+    <nav class="main-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="fixed-draw.html" class="nav-link active">Fixed Draw</a>
+        <a href="correct-score.html" class="nav-link">Correct Score</a>
+    </nav>
     <script src="scripts.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -128,6 +131,7 @@
 
             setupTabs();
             setupCopyCode();
+            setupThemeToggle();
         });
     </script>
 </body>

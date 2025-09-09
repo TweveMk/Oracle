@@ -20,7 +20,7 @@ function setupCopyCode() {
                 e.target.style.borderColor = '#000';
                 setTimeout(() => {
                     e.target.textContent = `SportyBet Code: ${code}`;
-                    e.target.style.backgroundColor = '#000';
+                    e.target.style.backgroundColor = document.body.classList.contains('light-theme') ? '#e0e0e0' : '#000';
                     e.target.style.color = '#0f0';
                     e.target.style.borderColor = '#0f0';
                 }, 1500);
@@ -28,5 +28,13 @@ function setupCopyCode() {
                 alert('Failed to copy code.');
             });
         }
+    });
+}
+
+function setupThemeToggle() {
+    const toggleButton = document.querySelector('.theme-toggle');
+    toggleButton.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        toggleButton.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
     });
 }
