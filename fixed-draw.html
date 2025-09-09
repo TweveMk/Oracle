@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>ORACLE - Fixed Draw</header>
+    <header class="main-header">ORACLE</header>
     <nav class="main-nav">
         <a href="index.html" class="nav-link">Home</a>
         <a href="fixed-draw.html" class="nav-link active">Fixed Draw</a>
@@ -89,7 +89,12 @@
                 }
             ];
 
-            document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+            document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', { 
+                month: 'long', 
+                day: 'numeric', 
+                year: 'numeric',
+                timeZone: 'Africa/Nairobi'
+            }).toUpperCase();
 
             function createMatchBoxHTML(match) {
                 const teamNames = match.team.split(' vs ');
@@ -97,10 +102,10 @@
                 return `
                     <div class="match-box">
                         <p><strong>Country:</strong> ${match.country}</p>
-                        <div>
-                            <p style="text-align:center;">${teamNames[0]}</p>
+                        <div class="team-names">
+                            <p>${teamNames[0]}</p>
                             <span class="team-vs">vs</span>
-                            <p style="text-align:center;">${teamNames[1] || ''}</p>
+                            <p>${teamNames[1] || ''}</p>
                         </div>
                         <p><strong>Prediction:</strong> ${match.pick}</p>
                         <p><strong>Odds:</strong> ${match.odds}</p>

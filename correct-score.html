@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>ORACLE - Correct Score</header>
+    <header class="main-header">ORACLE</header>
     <nav class="main-nav">
         <a href="index.html" class="nav-link">Home</a>
         <a href="fixed-draw.html" class="nav-link">Fixed Draw</a>
@@ -15,9 +15,10 @@
     </nav>
     <div id="password-prompt" class="section active">
         <div class="password-box">
-            <h2>Enter Password</h2>
+            <h2>Enter Password to Access Correct Score Tips</h2>
             <input type="password" id="password-input" placeholder="Enter password" />
             <button id="submit-password">Submit</button>
+            <a href="http://wa.me/+25765777318" target="_blank" class="get-password-btn">Get Password 🔑</a>
             <p id="error-message" style="color: var(--fail-color); display: none;">Incorrect password. Please try again.</p>
         </div>
     </div>
@@ -121,7 +122,8 @@
                 document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', {
                     month: 'long',
                     day: 'numeric',
-                    year: 'numeric'
+                    year: 'numeric',
+                    timeZone: 'Africa/Nairobi'
                 }).toUpperCase();
 
                 function createMatchBoxHTML(match) {
@@ -141,9 +143,9 @@
                         <div class="match-box">
                             <p><strong>Country:</strong> ${match.country}</p>
                             <div class="team-names">
-                                <p style="margin: 0; text-align: center; font-weight: bold;">${teamNames[0]}</p>
+                                <p>${teamNames[0]}</p>
                                 <span class="team-vs">vs</span>
-                                <p style="margin: 0; text-align: center; font-weight: bold;">${teamNames[1]}</p>
+                                <p>${teamNames[1]}</p>
                             </div>
                             <p><strong>Prediction:</strong> ${match.pick}</p>
                             <p><strong>Odds:</strong> ${match.odds}</p>

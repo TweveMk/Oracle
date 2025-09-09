@@ -3,14 +3,15 @@
     --bg-medium: #1e1e1e;
     --bg-light: #2c2c2c;
     --text-light: #e0e0e0;
-    --text-accent: #0f0;
-    --highlight: #ffc107;
+    --text-accent: #00ff88;
+    --highlight: #ffd700;
     --card-bg: #282828;
     --border-color: #444;
-    --shadow-color: rgba(0, 0, 0, 0.4);
+    --shadow-color: rgba(0, 0, 0, 0.5);
     --success-color: #28a745;
     --fail-color: #dc3545;
     --info-color: #17a2b8;
+    --gradient: linear-gradient(45deg, #00ff88, #ffd700);
 }
 
 body {
@@ -18,10 +19,11 @@ body {
     color: var(--text-light);
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
-    padding-top: 100px;
+    padding-top: 120px;
+    line-height: 1.6;
 }
 
-header {
+.main-header {
     background-color: var(--bg-medium);
     position: fixed;
     top: 0;
@@ -30,45 +32,57 @@ header {
     z-index: 1000;
     padding: 20px;
     text-align: center;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--text-accent);
-    box-shadow: 0 4px 10px var(--shadow-color);
+    font-size: 36px;
+    font-weight: 800;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 4px var(--shadow-color);
     text-transform: uppercase;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 .main-nav {
     display: flex;
     justify-content: center;
     position: fixed;
-    top: 68px;
+    top: 80px;
     left: 0;
     width: 100%;
     z-index: 1000;
     background-color: var(--bg-light);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    padding: 10px 0;
 }
 
 .nav-link {
     color: var(--text-light);
-    padding: 15px 25px;
+    padding: 15px 30px;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 18px;
     transition: all 0.3s ease;
     text-transform: uppercase;
     font-weight: 600;
     position: relative;
+    border-radius: 8px;
+    margin: 0 5px;
 }
 
 .nav-link:hover, .nav-link.active {
     color: var(--text-accent);
+    background-color: rgba(0, 255, 136, 0.1);
 }
 
 .nav-link.active::after {
     content: '';
     position: absolute;
     left: 50%;
-    bottom: 0;
+    bottom: -2px;
     transform: translateX(-50%);
     width: 80%;
     height: 3px;
@@ -79,46 +93,45 @@ header {
     display: flex;
     justify-content: center;
     background-color: var(--bg-light);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
     margin-top: 20px;
+    padding: 10px 0;
 }
 
 .tab-btn {
     background: none;
     border: none;
     color: var(--text-light);
-    padding: 15px 25px;
+    padding: 15px 30px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     transition: all 0.3s ease;
     text-transform: uppercase;
     font-weight: 600;
     position: relative;
+    border-radius: 8px;
+    margin: 0 5px;
 }
 
-.tab-btn::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%) scaleX(0);
-    width: 80%;
-    height: 3px;
-    background-color: var(--text-accent);
-    transition: transform 0.3s ease;
-}
-
-.tab-btn.active {
+.tab-btn:hover, .tab-btn.active {
     color: var(--text-accent);
+    background-color: rgba(0, 255, 136, 0.1);
 }
 
 .tab-btn.active::after {
-    transform: translateX(-50%) scaleX(1);
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background-color: var(--text-accent);
 }
 
 .section {
     display: none;
-    padding: 20px;
+    padding: 30px;
     animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -134,50 +147,61 @@ header {
 .date-section {
     background-color: var(--bg-light);
     color: var(--text-accent);
-    padding: 12px;
+    padding: 15px;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 15px;
-    font-size: 20px;
+    margin: 20px auto;
+    font-size: 22px;
     font-weight: 700;
-    border-radius: 8px;
+    border-radius: 10px;
     text-transform: uppercase;
-    box-shadow: 0 2px 5px var(--shadow-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    max-width: 600px;
 }
 
 .match-box {
     background-color: var(--card-bg);
     color: var(--text-light);
-    border-left: 5px solid var(--text-accent);
+    border-left: 6px solid var(--text-accent);
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 6px 12px var(--shadow-color);
-    transition: transform 0.3s ease;
+    padding: 25px;
+    margin: 20px auto;
+    box-shadow: 0 8px 16px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 600px;
 }
 
 .match-box:hover {
     transform: translateY(-5px);
+    box-shadow: 0 12px 24px var(--shadow-color);
 }
 
 .match-box p {
-    margin: 8px 0;
+    margin: 10px 0;
     display: flex;
     align-items: center;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 16px;
 }
 
 .match-box p strong {
     color: var(--highlight);
-    min-width: 90px;
-    margin-right: 10px;
+    min-width: 100px;
+    margin-right: 15px;
+    font-weight: 600;
 }
 
 .match-box .team-names {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.match-box .team-names p {
+    margin: 5px 0;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
 }
 
 .match-box .team-vs {
@@ -185,11 +209,11 @@ header {
     text-align: center;
     background-color: var(--highlight);
     color: #000;
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 4px 8px;
+    border-radius: 6px;
     font-weight: 700;
-    width: 30px;
-    margin: 5px auto;
+    width: 40px;
+    margin: 8px auto;
 }
 
 .result-text {
@@ -219,8 +243,8 @@ header {
     font-weight: 700;
     cursor: pointer;
     user-select: none;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
 .code-box:hover {
@@ -233,64 +257,114 @@ header {
     text-align: center;
     color: var(--highlight);
     font-size: 18px;
-    padding: 40px 10px;
+    padding: 40px 20px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 20px auto;
 }
 
 .welcome-section {
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 20px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .welcome-section h1 {
     color: var(--text-accent);
-    font-size: 36px;
+    font-size: 40px;
     margin-bottom: 20px;
+    text-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .welcome-section p {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: var(--text-light);
 }
 
 .password-box {
     background-color: var(--card-bg);
-    padding: 20px;
+    padding: 30px;
     border-radius: 12px;
     text-align: center;
-    max-width: 400px;
+    max-width: 500px;
     margin: 40px auto;
-    box-shadow: 0 6px 12px var(--shadow-color);
+    box-shadow: 0 8px 16px var(--shadow-color);
+    transition: transform 0.3s ease;
+}
+
+.password-box:hover {
+    transform: translateY(-5px);
+}
+
+.password-box h2 {
+    color: var(--text-accent);
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .password-box input {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--text-accent);
     border-radius: 8px;
     margin: 10px 0;
     width: 80%;
     background-color: var(--bg-medium);
     color: var(--text-light);
+    transition: border-color 0.3s ease;
+}
+
+.password-box input:focus {
+    outline: none;
+    border-color: var(--highlight);
 }
 
 .password-box button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 12px 30px;
+    font-size: 18px;
     background-color: var(--text-accent);
     color: #000;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .password-box button:hover {
     background-color: var(--highlight);
+    transform: scale(1.05);
+}
+
+.get-password-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 18px;
+    background-color: var(--highlight);
+    color: #000;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.get-password-btn:hover {
+    background-color: var(--text-accent);
+    transform: scale(1.05);
 }
 
 @media (max-width: 600px) {
-    header {
-        font-size: 24px;
+    .main-header {
+        font-size: 28px;
+        padding: 15px;
+    }
+
+    .main-nav {
+        top: 70px;
     }
 
     .nav-link, .tab-btn {
@@ -299,7 +373,7 @@ header {
     }
 
     .match-box {
-        padding: 15px;
+        padding: 20px;
     }
 
     .date-section {
@@ -307,10 +381,19 @@ header {
     }
 
     .welcome-section h1 {
-        font-size: 28px;
+        font-size: 32px;
+    }
+
+    .welcome-section p {
+        font-size: 16px;
     }
 
     .password-box {
-        padding: 15px;
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .password-box input, .password-box button, .get-password-btn {
+        width: 90%;
     }
 }

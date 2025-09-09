@@ -7,26 +7,28 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>ORACLE</header>
+    <header class="main-header">ORACLE</header>
     <nav class="main-nav">
+        <a href="index.html" class="nav-link active">Home</a>
         <a href="fixed-draw.html" class="nav-link">Fixed Draw</a>
         <a href="correct-score.html" class="nav-link">Correct Score</a>
     </nav>
     <div class="welcome-section">
         <h1>Welcome to ORACLE</h1>
-        <p>Your trusted source for Fixed Draw and Correct Score betting tips.</p>
-        <p>Select a section above to view today's tips or historical results.</p>
+        <p>Your trusted source for premium Fixed Draw and Correct Score betting tips.</p>
+        <p>Select a section above to explore today's tips or historical results.</p>
         <p class="date-section" id="current-date"></p>
     </div>
     <script src="scripts.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Set current date
+            // Set current date in EAT
             document.getElementById('current-date').textContent = 
                 new Date().toLocaleDateString('en-US', { 
                     month: 'long', 
                     day: 'numeric', 
-                    year: 'numeric' 
+                    year: 'numeric',
+                    timeZone: 'Africa/Nairobi'
                 }).toUpperCase();
         });
     </script>
