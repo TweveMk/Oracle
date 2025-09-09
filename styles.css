@@ -84,23 +84,6 @@ body.light-theme .code-box {
     box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-.theme-toggle {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: var(--text-accent);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.theme-toggle:hover {
-    transform: scale(1.2);
-}
-
-body.light-theme .theme-toggle {
-    color: var(--light-text);
-}
-
 .site-title {
     font-size: 36px;
     font-weight: 800;
@@ -110,6 +93,29 @@ body.light-theme .theme-toggle {
     text-shadow: 0 2px 4px var(--shadow-color);
     text-transform: uppercase;
     animation: pulse 2s infinite ease-in-out;
+    margin-left: 20px; /* Balanced spacing from left edge */
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-accent);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-right: 20px; /* Balanced spacing from right edge */
+}
+
+.theme-toggle:hover {
+    transform: scale(1.2);
+}
+
+.theme-toggle:focus {
+    outline: 2px solid var(--text-accent);
+}
+
+body.light-theme .theme-toggle {
+    color: var(--light-text);
 }
 
 @keyframes pulse {
@@ -426,21 +432,31 @@ body.light-theme .password-box input {
     transform: scale(1.05);
 }
 
+.password-box button:focus {
+    outline: 2px solid var(--text-accent);
+}
+
 .get-password-btn {
     display: inline-block;
-    padding: 12px 30px;
-    font-size: 18px;
+    padding: 14px 40px;
+    font-size: 20px;
     background-color: var(--highlight);
     color: #000;
     text-decoration: none;
-    border-radius: 8px;
-    margin: 10px 0;
+    border-radius: 10px;
+    margin: 15px 0;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    font-weight: 600;
 }
 
 .get-password-btn:hover {
-    background-color: var(--text-accent);
+    background: var(--gradient);
     transform: scale(1.05);
+}
+
+.get-password-btn:focus {
+    outline: 2px solid var(--text-accent);
 }
 
 @media (max-width: 600px) {
@@ -450,10 +466,12 @@ body.light-theme .password-box input {
 
     .site-title {
         font-size: 28px;
+        margin-left: 15px;
     }
 
     .theme-toggle {
         font-size: 20px;
+        margin-right: 15px;
     }
 
     .nav-link, .tab-btn {
@@ -484,5 +502,10 @@ body.light-theme .password-box input {
 
     .password-box input, .password-box button, .get-password-btn {
         width: 90%;
+        font-size: 16px;
+    }
+
+    .get-password-btn {
+        padding: 12px 30px;
     }
 }
