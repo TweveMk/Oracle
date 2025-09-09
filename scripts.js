@@ -1,10 +1,20 @@
-function setupTabs() {
+function setupTabs(isPasswordCorrect, passwordPrompt, todayContent) {
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(btn.dataset.tab).classList.add('active');
+            const targetSection = document.getElementById(btn.dataset.tab);
+            targetSection.classList.add('active');
+            if (btn.dataset.tab === 'today') {
+                if (isPasswordCorrect) {
+                    passwordPrompt.style.display = 'none';
+                    todayContent.style.display = 'block';
+                } else {
+                    passwordPrompt.style.display = 'block';
+                    todayContent.style.display = 'none';
+                }
+            }
         });
     });
 }

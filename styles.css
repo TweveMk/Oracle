@@ -116,7 +116,7 @@ body.light-theme .get-password-btn {
     text-shadow: 0 2px 4px var(--shadow-color);
     text-transform: uppercase;
     animation: pulse 2s infinite ease-in-out;
-    margin-left: 20px; /* Balanced spacing from left edge */
+    margin-left: 20px;
 }
 
 body.light-theme .site-title {
@@ -132,7 +132,7 @@ body.light-theme .site-title {
     color: var(--text-accent);
     cursor: pointer;
     transition: transform 0.3s ease, color 0.3s ease;
-    margin-right: 20px; /* Balanced spacing from right edge */
+    margin-right: 20px;
 }
 
 .theme-toggle:hover {
@@ -267,9 +267,12 @@ body.light-theme .tab-btn.active::after {
 }
 
 .section {
-    display: none;
     padding: 30px;
     animation: fadeIn 0.5s ease-in-out;
+}
+
+.section:not(.active) {
+    display: none;
 }
 
 .section.active {
