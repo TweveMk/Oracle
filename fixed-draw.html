@@ -12,14 +12,25 @@
         <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
     </header>
     <nav class="tab-nav">
-        <button class="tab-btn active" data-tab="today">Today's Tips</button>
-        <button class="tab-btn" data-tab="history">History</button>
+        <button class="tab-btn" data-tab="today">Today's Tips</button>
+        <button class="tab-btn active" data-tab="history">History</button>
     </nav>
-    <div id="today" class="section active">
-        <div class="date-section" id="today-date"></div>
-        <div id="today-matches"></div>
+    <div id="today" class="section">
+        <div id="password-prompt" class="section active">
+            <div class="password-box">
+                <h2>Enter Password to Access Today's Fixed Draw Tips</h2>
+                <input type="password" id="password-input" placeholder="Enter password" aria-label="Password input" />
+                <button id="submit-password">Submit</button>
+                <a href="http://wa.me/+25765777318" target="_blank" class="get-password-btn" aria-label="Get password via WhatsApp">Get Password 🔑</a>
+                <p id="error-message" style="color: var(--fail-color); display: none;">Incorrect password. Please try again.</p>
+            </div>
+        </div>
+        <div id="today-content" class="section" style="display: none;">
+            <div class="date-section" id="today-date"></div>
+            <div id="today-matches"></div>
+        </div>
     </div>
-    <div id="history" class="section">
+    <div id="history" class="section active">
         <div id="history-matches"></div>
     </div>
     <nav class="main-nav">
@@ -30,24 +41,63 @@
     <script src="scripts.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const todayMatches = [
-                {
-                    country: 'EGYPT',
-                    team: 'Tanta FC vs Asyut Petroleum',
-                    pick: 'Draw',
-                    odds: 2.70,
-                    result: '---',
-                    code: '5L5A1V'
-                },
-                {
-                    country: 'EGYPT',
-                    team: 'Aswan FC vs Baladiyyat AL Mehalla',
-                    pick: 'Draw',
-                    odds: 2.65,
-                    result: '---',
-                    code: '564D0K'
+            const correctPassword = '3344';
+            const passwordPrompt = document.getElementById('password-prompt');
+            const todayContent = document.getElementById('today-content');
+            const errorMessage = document.getElementById('error-message');
+            const passwordInput = document.getElementById('password-input');
+            const submitButton = document.getElementById('submit-password');
+
+            submitButton.addEventListener('click', () => {
+                if (passwordInput.value === correctPassword) {
+                    passwordPrompt.style.display = 'none';
+                    todayContent.style.display = 'block';
+                    loadTodayContent();
+                } else {
+                    errorMessage.style.display = 'block';
+                    passwordInput.value = '';
                 }
-            ];
+            });
+
+            passwordInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    submitButton.click();
+                }
+            });
+
+            function loadTodayContent() {
+                const todayMatches = [
+                    {
+                        country: 'EGYPT',
+                        team: 'Tanta FC vs Asyut Petroleum',
+                        pick: 'Draw',
+                        odds: 2.70,
+                        result: '---',
+                        code: '5L5A1V'
+                    },
+                    {
+                        country: 'EGYPT',
+                        team: 'Aswan FC vs Baladiyyat AL Mehalla',
+                        pick: 'Draw',
+                        odds: 2.65,
+                        result: '---',
+                        code: '564D0K'
+                    }
+                ];
+
+                document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', { 
+                    month: 'long', 
+                    day: 'numeric', 
+                    year: 'numeric',
+                    timeZone: 'Africa/Nairobi'
+                }).toUpperCase();
+
+                if (todayMatches.length > 0) {
+                    document.getElementById('today-matches').innerHTML = todayMatches.map(createMatchBoxHTML).join('');
+                } else {
+                    document.getElementById('today-matches').innerHTML = '<div class="no-matches">No matches available today</div>';
+                }
+            }
 
             const historyMatches = [
                 {
@@ -92,12 +142,10 @@
                 }
             ];
 
-            document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', { 
-                month: 'long', 
-                day: 'numeric', 
-                year: 'numeric',
-                timeZone: 'Africa/Nairobi'
-            }).toUpperCase();
+            document.getElementById('history-matches').innerHTML = historyMatches.map(day => `
+                <div class="date-section">${day.date}</div>
+                ${day.matches.map(createMatchBoxHTML).join('')}
+            `).join('');
 
             function createMatchBoxHTML(match) {
                 const teamNames = match.team.split(' vs ');
@@ -117,17 +165,6 @@
                     </div>
                 `;
             }
-
-            if (todayMatches.length > 0) {
-                document.getElementById('today-matches').innerHTML = todayMatches.map(createMatchBoxHTML).join('');
-            } else {
-                document.getElementById('today-matches').innerHTML = '<div class="no-matches">No matches available today</div>';
-            }
-
-            document.getElementById('history-matches').innerHTML = historyMatches.map(day => `
-                <div class="date-section">${day.date}</div>
-                ${day.matches.map(createMatchBoxHTML).join('')}
-            `).join('');
 
             setupTabs();
             setupCopyCode();

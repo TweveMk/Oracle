@@ -11,27 +11,27 @@
         <span class="site-title">ORACLE</span>
         <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
     </header>
-    <div id="password-prompt" class="section active">
-        <div class="password-box">
-            <h2>Enter Password to Access Correct Score Tips</h2>
-            <input type="password" id="password-input" placeholder="Enter password" aria-label="Password input" />
-            <button id="submit-password">Submit</button>
-            <a href="http://wa.me/+25765777318" target="_blank" class="get-password-btn" aria-label="Get password via WhatsApp">Get Password 🔑</a>
-            <p id="error-message" style="color: var(--fail-color); display: none;">Incorrect password. Please try again.</p>
+    <nav class="tab-nav">
+        <button class="tab-btn" data-tab="today">Today's Tips</button>
+        <button class="tab-btn active" data-tab="history">History</button>
+    </nav>
+    <div id="today" class="section">
+        <div id="password-prompt" class="section active">
+            <div class="password-box">
+                <h2>Enter Password to Access Today's Correct Score Tips</h2>
+                <input type="password" id="password-input" placeholder="Enter password" aria-label="Password input" />
+                <button id="submit-password">Submit</button>
+                <a href="http://wa.me/+25765777318" target="_blank" class="get-password-btn" aria-label="Get password via WhatsApp">Get Password 🔑</a>
+                <p id="error-message" style="color: var(--fail-color); display: none;">Incorrect password. Please try again.</p>
+            </div>
         </div>
-    </div>
-    <div id="content" class="section" style="display: none;">
-        <nav class="tab-nav">
-            <button class="tab-btn active" data-tab="today">Today's Tips</button>
-            <button class="tab-btn" data-tab="history">History</button>
-        </nav>
-        <div id="today" class="section active">
+        <div id="today-content" class="section" style="display: none;">
             <div class="date-section" id="today-date"></div>
             <div id="today-matches"></div>
         </div>
-        <div id="history" class="section">
-            <div id="history-matches"></div>
-        </div>
+    </div>
+    <div id="history" class="section active">
+        <div id="history-matches"></div>
     </div>
     <nav class="main-nav">
         <a href="index.html" class="nav-link">Home</a>
@@ -43,7 +43,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const correctPassword = '3344';
             const passwordPrompt = document.getElementById('password-prompt');
-            const content = document.getElementById('content');
+            const todayContent = document.getElementById('today-content');
             const errorMessage = document.getElementById('error-message');
             const passwordInput = document.getElementById('password-input');
             const submitButton = document.getElementById('submit-password');
@@ -51,8 +51,8 @@
             submitButton.addEventListener('click', () => {
                 if (passwordInput.value === correctPassword) {
                     passwordPrompt.style.display = 'none';
-                    content.style.display = 'block';
-                    loadContent();
+                    todayContent.style.display = 'block';
+                    loadTodayContent();
                 } else {
                     errorMessage.style.display = 'block';
                     passwordInput.value = '';
@@ -65,7 +65,7 @@
                 }
             });
 
-            function loadContent() {
+            function loadTodayContent() {
                 const todayMatches = [
                     {
                         country: 'BOLIVIA',
@@ -77,51 +77,6 @@
                     }
                 ];
 
-                const historyMatches = [
-                    {
-                        date: 'AUGUST 21, 2025',
-                        matches: [
-                            {
-                                country: 'SERBIA',
-                                team: 'RFK Graficar Beograd vs FK Borac Cacak',
-                                pick: 'Correct Score 2:1',
-                                odds: 7.24,
-                                result: '(3:1) unfortunately red card',
-                                code: '6U1EJ4'
-                            }
-                        ]
-                    },
-                    {
-                        date: 'AUGUST 6, 2025',
-                        matches: [
-                            {
-                                country: 'NORWAY',
-                                team: 'Ranheim vs Moss FK',
-                                pick: 'Correct Score 2:1',
-                                odds: 8.50,
-                                result: 'BORE DRAW (REFUNDED)',
-                                code: '56SAUL'
-                            },
-                            {
-                                country: 'NORWAY',
-                                team: 'Sogndal Fotball vs Hoedd IL',
-                                pick: 'Correct Score 2:1',
-                                odds: 8.70,
-                                result: '(2:1)✅',
-                                code: '56TXV8'
-                            },
-                            {
-                                country: 'ICELAND',
-                                team: 'Fjolnir vs UMF Njardvik',
-                                pick: 'Correct Score 1:2',
-                                odds: 8.47,
-                                result: '(1:2)✅',
-                                code: '633MNG'
-                            }
-                        ]
-                    }
-                ];
-
                 document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', {
                     month: 'long',
                     day: 'numeric',
@@ -129,58 +84,94 @@
                     timeZone: 'Africa/Nairobi'
                 }).toUpperCase();
 
-                function createMatchBoxHTML(match) {
-                    const teamNames = match.team.split(' vs ');
-                    let resultClass = '';
-                    let resultText = match.result;
-
-                    if (match.result.toLowerCase().includes('won') || match.result.includes('✅')) {
-                        resultClass = 'result-success';
-                    } else if (match.result.includes('BORE DRAW')) {
-                        resultClass = 'result-info';
-                    } else if (match.result !== '---') {
-                        resultClass = 'result-fail';
-                    }
-
-                    return `
-                        <div class="match-box">
-                            <p><strong>Country:</strong> ${match.country}</p>
-                            <div class="team-names">
-                                <p>${teamNames[0]}</p>
-                                <span class="team-vs">vs</span>
-                                <p>${teamNames[1]}</p>
-                            </div>
-                            <p><strong>Prediction:</strong> ${match.pick}</p>
-                            <p><strong>Odds:</strong> ${match.odds}</p>
-                            <p><strong>Result:</strong> <span class="result-text ${resultClass}">${resultText}</span></p>
-                            <div class="code-box" data-code="${match.code}">SportyBet Code: ${match.code}</div>
-                        </div>
-                    `;
+                if (todayMatches.length === 0) {
+                    document.getElementById('today-matches').innerHTML = `<p style="text-align:center; color:gray;">No tips for today.</p>`;
+                } else {
+                    document.getElementById('today-matches').innerHTML = todayMatches.map(createMatchBoxHTML).join('');
                 }
-
-                function renderTodayMatches() {
-                    const container = document.getElementById('today-matches');
-                    if (todayMatches.length === 0) {
-                        container.innerHTML = `<p style="text-align:center; color:gray;">No tips for today.</p>`;
-                    } else {
-                        container.innerHTML = todayMatches.map(createMatchBoxHTML).join('');
-                    }
-                }
-
-                function renderHistoryMatches() {
-                    const container = document.getElementById('history-matches');
-                    container.innerHTML = historyMatches.map(day => `
-                        <div class="date-section">${day.date}</div>
-                        ${day.matches.map(createMatchBoxHTML).join('')}
-                    `).join('');
-                }
-
-                renderTodayMatches();
-                renderHistoryMatches();
-                setupTabs();
-                setupCopyCode();
             }
 
+            const historyMatches = [
+                {
+                    date: 'AUGUST 21, 2025',
+                    matches: [
+                        {
+                            country: 'SERBIA',
+                            team: 'RFK Graficar Beograd vs FK Borac Cacak',
+                            pick: 'Correct Score 2:1',
+                            odds: 7.24,
+                            result: '(3:1) unfortunately red card',
+                            code: '6U1EJ4'
+                        }
+                    ]
+                },
+                {
+                    date: 'AUGUST 6, 2025',
+                    matches: [
+                        {
+                            country: 'NORWAY',
+                            team: 'Ranheim vs Moss FK',
+                            pick: 'Correct Score 2:1',
+                            odds: 8.50,
+                            result: 'BORE DRAW (REFUNDED)',
+                            code: '56SAUL'
+                        },
+                        {
+                            country: 'NORWAY',
+                            team: 'Sogndal Fotball vs Hoedd IL',
+                            pick: 'Correct Score 2:1',
+                            odds: 8.70,
+                            result: '(2:1)✅',
+                            code: '56TXV8'
+                        },
+                        {
+                            country: 'ICELAND',
+                            team: 'Fjolnir vs UMF Njardvik',
+                            pick: 'Correct Score 1:2',
+                            odds: 8.47,
+                            result: '(1:2)✅',
+                            code: '633MNG'
+                        }
+                    ]
+                }
+            ];
+
+            document.getElementById('history-matches').innerHTML = historyMatches.map(day => `
+                <div class="date-section">${day.date}</div>
+                ${day.matches.map(createMatchBoxHTML).join('')}
+            `).join('');
+
+            function createMatchBoxHTML(match) {
+                const teamNames = match.team.split(' vs ');
+                let resultClass = '';
+                let resultText = match.result;
+
+                if (match.result.toLowerCase().includes('won') || match.result.includes('✅')) {
+                    resultClass = 'result-success';
+                } else if (match.result.includes('BORE DRAW')) {
+                    resultClass = 'result-info';
+                } else if (match.result !== '---') {
+                    resultClass = 'result-fail';
+                }
+
+                return `
+                    <div class="match-box">
+                        <p><strong>Country:</strong> ${match.country}</p>
+                        <div class="team-names">
+                            <p>${teamNames[0]}</p>
+                            <span class="team-vs">vs</span>
+                            <p>${teamNames[1]}</p>
+                        </div>
+                        <p><strong>Prediction:</strong> ${match.pick}</p>
+                        <p><strong>Odds:</strong> ${match.odds}</p>
+                        <p><strong>Result:</strong> <span class="result-text ${resultClass}">${resultText}</span></p>
+                        <div class="code-box" data-code="${match.code}">SportyBet Code: ${match.code}</div>
+                    </div>
+                `;
+            }
+
+            setupTabs();
+            setupCopyCode();
             setupThemeToggle();
         });
     </script>

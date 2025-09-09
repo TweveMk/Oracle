@@ -18,6 +18,8 @@
     --light-bg-medium: #e0e0e0;
     --light-bg-light: #d0d0d0;
     --light-border-color: #ccc;
+    --light-highlight: #ffca28;
+    --light-accent: #00c853;
 }
 
 body {
@@ -52,6 +54,7 @@ body.light-theme .tab-nav {
 
 body.light-theme .date-section {
     background-color: var(--light-bg-light);
+    color: var(--light-accent);
 }
 
 body.light-theme .match-box {
@@ -60,6 +63,7 @@ body.light-theme .match-box {
 
 body.light-theme .no-matches {
     background-color: var(--light-card-bg);
+    color: var(--light-highlight);
 }
 
 body.light-theme .password-box {
@@ -68,6 +72,24 @@ body.light-theme .password-box {
 
 body.light-theme .code-box {
     background-color: var(--light-bg-medium);
+    color: var(--light-accent);
+    border-color: var(--light-accent);
+}
+
+body.light-theme .password-box input {
+    background-color: var(--light-bg-light);
+    color: var(--light-text);
+    border-color: var(--light-accent);
+}
+
+body.light-theme .password-box button {
+    background-color: var(--light-accent);
+    color: #fff;
+}
+
+body.light-theme .get-password-btn {
+    background-color: var(--light-highlight);
+    color: #000;
 }
 
 .main-header {
@@ -82,6 +104,7 @@ body.light-theme .code-box {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 8px var(--shadow-color);
+    transition: background-color 0.3s ease;
 }
 
 .site-title {
@@ -96,13 +119,19 @@ body.light-theme .code-box {
     margin-left: 20px; /* Balanced spacing from left edge */
 }
 
+body.light-theme .site-title {
+    background: linear-gradient(45deg, var(--light-accent), var(--light-highlight));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .theme-toggle {
     background: none;
     border: none;
     font-size: 24px;
     color: var(--text-accent);
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
     margin-right: 20px; /* Balanced spacing from right edge */
 }
 
@@ -116,6 +145,10 @@ body.light-theme .code-box {
 
 body.light-theme .theme-toggle {
     color: var(--light-text);
+}
+
+body.light-theme .theme-toggle:focus {
+    outline: 2px solid var(--light-accent);
 }
 
 @keyframes pulse {
@@ -134,6 +167,7 @@ body.light-theme .theme-toggle {
     background-color: var(--bg-light);
     border-top: 2px solid var(--border-color);
     padding: 10px 0;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-link {
@@ -158,6 +192,11 @@ body.light-theme .nav-link {
     background-color: rgba(0, 255, 136, 0.1);
 }
 
+body.light-theme .nav-link:hover, body.light-theme .nav-link.active {
+    color: var(--light-accent);
+    background-color: rgba(0, 200, 83, 0.1);
+}
+
 .nav-link.active::after {
     content: '';
     position: absolute;
@@ -169,6 +208,10 @@ body.light-theme .nav-link {
     background-color: var(--text-accent);
 }
 
+body.light-theme .nav-link.active::after {
+    background-color: var(--light-accent);
+}
+
 .tab-nav {
     display: flex;
     justify-content: center;
@@ -176,6 +219,7 @@ body.light-theme .nav-link {
     border-bottom: 2px solid var(--border-color);
     margin: 20px 0;
     padding: 10px 0;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .tab-btn {
@@ -202,6 +246,11 @@ body.light-theme .tab-btn {
     background-color: rgba(0, 255, 136, 0.1);
 }
 
+body.light-theme .tab-btn:hover, body.light-theme .tab-btn.active {
+    color: var(--light-accent);
+    background-color: rgba(0, 200, 83, 0.1);
+}
+
 .tab-btn.active::after {
     content: '';
     position: absolute;
@@ -211,6 +260,10 @@ body.light-theme .tab-btn {
     width: 80%;
     height: 3px;
     background-color: var(--text-accent);
+}
+
+body.light-theme .tab-btn.active::after {
+    background-color: var(--light-accent);
 }
 
 .section {
@@ -240,6 +293,7 @@ body.light-theme .tab-btn {
     text-transform: uppercase;
     box-shadow: 0 4px 8px var(--shadow-color);
     max-width: 600px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .match-box {
@@ -250,8 +304,12 @@ body.light-theme .tab-btn {
     padding: 25px;
     margin: 20px auto;
     box-shadow: 0 8px 16px var(--shadow-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
     max-width: 600px;
+}
+
+body.light-theme .match-box {
+    border-left-color: var(--light-accent);
 }
 
 .match-box:hover {
@@ -272,6 +330,10 @@ body.light-theme .tab-btn {
     min-width: 100px;
     margin-right: 15px;
     font-weight: 600;
+}
+
+body.light-theme .match-box p strong {
+    color: var(--light-highlight);
 }
 
 .match-box .team-names {
@@ -298,6 +360,10 @@ body.light-theme .tab-btn {
     font-weight: 700;
     width: 40px;
     margin: 8px auto;
+}
+
+body.light-theme .match-box .team-vs {
+    background-color: var(--light-highlight);
 }
 
 .result-text {
@@ -331,13 +397,14 @@ body.light-theme .tab-btn {
     transition: all 0.3s ease;
 }
 
-body.light-theme .code-box {
-    background-color: var(--light-bg-medium);
-}
-
 .code-box:hover {
     background-color: var(--text-accent);
     color: #000;
+    border-color: #000;
+}
+
+body.light-theme .code-box:hover {
+    background-color: var(--light-accent);
     border-color: #000;
 }
 
@@ -350,6 +417,7 @@ body.light-theme .code-box {
     border-radius: 12px;
     max-width: 600px;
     margin: 20px auto;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .welcome-section {
@@ -366,9 +434,17 @@ body.light-theme .code-box {
     text-shadow: 0 2px 4px var(--shadow-color);
 }
 
+body.light-theme .welcome-section h1 {
+    color: var(--light-accent);
+}
+
 .welcome-section p {
     font-size: 20px;
     margin-bottom: 15px;
+}
+
+body.light-theme .welcome-section p {
+    color: var(--light-text);
 }
 
 .password-box {
@@ -379,7 +455,7 @@ body.light-theme .code-box {
     max-width: 500px;
     margin: 40px auto;
     box-shadow: 0 8px 16px var(--shadow-color);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .password-box:hover {
@@ -393,6 +469,11 @@ body.light-theme .code-box {
     text-shadow: 0 2px 4px var(--shadow-color);
 }
 
+body.light-theme .password-box h2 {
+    color: var(--light-accent);
+    text-shadow: none;
+}
+
 .password-box input {
     padding: 12px;
     font-size: 16px;
@@ -402,17 +483,16 @@ body.light-theme .code-box {
     width: 80%;
     background-color: var(--bg-medium);
     color: var(--text-light);
-    transition: border-color 0.3s ease;
-}
-
-body.light-theme .password-box input {
-    background-color: var(--light-bg-medium);
-    color: var(--light-text);
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .password-box input:focus {
     outline: none;
     border-color: var(--highlight);
+}
+
+body.light-theme .password-box input:focus {
+    border-color: var(--light-highlight);
 }
 
 .password-box button {
@@ -432,22 +512,32 @@ body.light-theme .password-box input {
     transform: scale(1.05);
 }
 
+body.light-theme .password-box button:hover {
+    background-color: var(--light-highlight);
+}
+
 .password-box button:focus {
     outline: 2px solid var(--text-accent);
 }
 
+body.light-theme .password-box button:focus {
+    outline: 2px solid var(--light-accent);
+}
+
 .get-password-btn {
-    display: inline-block;
+    display: block;
     padding: 14px 40px;
     font-size: 20px;
     background-color: var(--highlight);
     color: #000;
     text-decoration: none;
     border-radius: 10px;
-    margin: 15px 0;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 15px auto;
+    transition: background 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 8px var(--shadow-color);
     font-weight: 600;
+    width: 80%;
+    text-align: center;
 }
 
 .get-password-btn:hover {
@@ -455,8 +545,20 @@ body.light-theme .password-box input {
     transform: scale(1.05);
 }
 
+body.light-theme .get-password-btn {
+    background-color: var(--light-highlight);
+}
+
+body.light-theme .get-password-btn:hover {
+    background: linear-gradient(45deg, var(--light-accent), var(--light-highlight));
+}
+
 .get-password-btn:focus {
     outline: 2px solid var(--text-accent);
+}
+
+body.light-theme .get-password-btn:focus {
+    outline: 2px solid var(--light-accent);
 }
 
 @media (max-width: 600px) {
