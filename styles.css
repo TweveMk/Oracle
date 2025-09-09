@@ -1,0 +1,316 @@
+:root {
+    --bg-dark: #121212;
+    --bg-medium: #1e1e1e;
+    --bg-light: #2c2c2c;
+    --text-light: #e0e0e0;
+    --text-accent: #0f0;
+    --highlight: #ffc107;
+    --card-bg: #282828;
+    --border-color: #444;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --success-color: #28a745;
+    --fail-color: #dc3545;
+    --info-color: #17a2b8;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding-top: 100px;
+}
+
+header {
+    background-color: var(--bg-medium);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-accent);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    text-transform: uppercase;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 68px;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--bg-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-link {
+    color: var(--text-light);
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+    position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-accent);
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background-color: var(--text-accent);
+}
+
+.tab-nav {
+    display: flex;
+    justify-content: center;
+    background-color: var(--bg-light);
+    border-bottom: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    padding: 15px 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+    position: relative;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 3px;
+    background-color: var(--text-accent);
+    transition: transform 0.3s ease;
+}
+
+.tab-btn.active {
+    color: var(--text-accent);
+}
+
+.tab-btn.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.section {
+    display: none;
+    padding: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.date-section {
+    background-color: var(--bg-light);
+    color: var(--text-accent);
+    padding: 12px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.match-box {
+    background-color: var(--card-bg);
+    color: var(--text-light);
+    border-left: 5px solid var(--text-accent);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 6px 12px var(--shadow-color);
+    transition: transform 0.3s ease;
+}
+
+.match-box:hover {
+    transform: translateY(-5px);
+}
+
+.match-box p {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    line-height: 1.5;
+}
+
+.match-box p strong {
+    color: var(--highlight);
+    min-width: 90px;
+    margin-right: 10px;
+}
+
+.match-box .team-names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.match-box .team-vs {
+    display: block;
+    text-align: center;
+    background-color: var(--highlight);
+    color: #000;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    width: 30px;
+    margin: 5px auto;
+}
+
+.result-text {
+    font-weight: 700;
+}
+
+.result-success {
+    color: var(--success-color);
+}
+
+.result-fail {
+    color: var(--fail-color);
+}
+
+.result-info {
+    color: var(--info-color);
+}
+
+.code-box {
+    background-color: #000;
+    color: var(--text-accent);
+    border: 2px dashed var(--text-accent);
+    padding: 15px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.code-box:hover {
+    background-color: var(--text-accent);
+    color: #000;
+    border-color: #000;
+}
+
+.no-matches {
+    text-align: center;
+    color: var(--highlight);
+    font-size: 18px;
+    padding: 40px 10px;
+}
+
+.welcome-section {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.welcome-section h1 {
+    color: var(--text-accent);
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.welcome-section p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.password-box {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    margin: 40px auto;
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.password-box input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    margin: 10px 0;
+    width: 80%;
+    background-color: var(--bg-medium);
+    color: var(--text-light);
+}
+
+.password-box button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--text-accent);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.password-box button:hover {
+    background-color: var(--highlight);
+}
+
+@media (max-width: 600px) {
+    header {
+        font-size: 24px;
+    }
+
+    .nav-link, .tab-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .match-box {
+        padding: 15px;
+    }
+
+    .date-section {
+        font-size: 18px;
+    }
+
+    .welcome-section h1 {
+        font-size: 28px;
+    }
+
+    .password-box {
+        padding: 15px;
+    }
+}

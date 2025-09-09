@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ORACLE - Correct Score</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>ORACLE - Correct Score</header>
+    <nav class="main-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="fixed-draw.html" class="nav-link">Fixed Draw</a>
+        <a href="correct-score.html" class="nav-link active">Correct Score</a>
+    </nav>
+    <div id="password-prompt" class="section active">
+        <div class="password-box">
+            <h2>Enter Password</h2>
+            <input type="password" id="password-input" placeholder="Enter password" />
+            <button id="submit-password">Submit</button>
+            <p id="error-message" style="color: var(--fail-color); display: none;">Incorrect password. Please try again.</p>
+        </div>
+    </div>
+    <div id="content" class="section" style="display: none;">
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="today">Today's Tips</button>
+            <button class="tab-btn" data-tab="history">History</button>
+        </nav>
+        <div id="today" class="section active">
+            <div class="date-section" id="today-date"></div>
+            <div id="today-matches"></div>
+        </div>
+        <div id="history" class="section">
+            <div id="history-matches"></div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const correctPassword = '3344';
+            const passwordPrompt = document.getElementById('password-prompt');
+            const content = document.getElementById('content');
+            const errorMessage = document.getElementById('error-message');
+            const passwordInput = document.getElementById('password-input');
+            const submitButton = document.getElementById('submit-password');
+
+            submitButton.addEventListener('click', () => {
+                if (passwordInput.value === correctPassword) {
+                    passwordPrompt.style.display = 'none';
+                    content.style.display = 'block';
+                    loadContent();
+                } else {
+                    errorMessage.style.display = 'block';
+                    passwordInput.value = '';
+                }
+            });
+
+            passwordInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    submitButton.click();
+                }
+            });
+
+            function loadContent() {
+                const todayMatches = [
+                    {
+                        country: 'BOLIVIA',
+                        team: 'The Strongest vs GV Club Deportivo San Jose de Oruro',
+                        pick: 'Correct Score 3:1',
+                        odds: 9.91,
+                        result: '---',
+                        code: '5T6BNU'
+                    }
+                ];
+
+                const historyMatches = [
+                    {
+                        date: 'AUGUST 21, 2025',
+                        matches: [
+                            {
+                                country: 'SERBIA',
+                                team: 'RFK Graficar Beograd vs FK Borac Cacak',
+                                pick: 'Correct Score 2:1',
+                                odds: 7.24,
+                                result: '(3:1) unfortunately red card',
+                                code: '6U1EJ4'
+                            }
+                        ]
+                    },
+                    {
+                        date: 'AUGUST 6, 2025',
+                        matches: [
+                            {
+                                country: 'NORWAY',
+                                team: 'Ranheim vs Moss FK',
+                                pick: 'Correct Score 2:1',
+                                odds: 8.50,
+                                result: 'BORE DRAW (REFUNDED)',
+                                code: '56SAUL'
+                            },
+                            {
+                                country: 'NORWAY',
+                                team: 'Sogndal Fotball vs Hoedd IL',
+                                pick: 'Correct Score 2:1',
+                                odds: 8.70,
+                                result: '(2:1)✅',
+                                code: '56TXV8'
+                            },
+                            {
+                                country: 'ICELAND',
+                                team: 'Fjolnir vs UMF Njardvik',
+                                pick: 'Correct Score 1:2',
+                                odds: 8.47,
+                                result: '(1:2)✅',
+                                code: '633MNG'
+                            }
+                        ]
+                    }
+                ];
+
+                document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                }).toUpperCase();
+
+                function createMatchBoxHTML(match) {
+                    const teamNames = match.team.split(' vs ');
+                    let resultClass = '';
+                    let resultText = match.result;
+
+                    if (match.result.toLowerCase().includes('won') || match.result.includes('✅')) {
+                        resultClass = 'result-success';
+                    } else if (match.result.includes('BORE DRAW')) {
+                        resultClass = 'result-info';
+                    } else if (match.result !== '---') {
+                        resultClass = 'result-fail';
+                    }
+
+                    return `
+                        <div class="match-box">
+                            <p><strong>Country:</strong> ${match.country}</p>
+                            <div class="team-names">
+                                <p style="margin: 0; text-align: center; font-weight: bold;">${teamNames[0]}</p>
+                                <span class="team-vs">vs</span>
+                                <p style="margin: 0; text-align: center; font-weight: bold;">${teamNames[1]}</p>
+                            </div>
+                            <p><strong>Prediction:</strong> ${match.pick}</p>
+                            <p><strong>Odds:</strong> ${match.odds}</p>
+                            <p><strong>Result:</strong> <span class="result-text ${resultClass}">${resultText}</span></p>
+                            <div class="code-box" data-code="${match.code}">SportyBet Code: ${match.code}</div>
+                        </div>
+                    `;
+                }
+
+                function renderTodayMatches() {
+                    const container = document.getElementById('today-matches');
+                    if (todayMatches.length === 0) {
+                        container.innerHTML = `<p style="text-align:center; color:gray;">No tips for today.</p>`;
+                    } else {
+                        container.innerHTML = todayMatches.map(createMatchBoxHTML).join('');
+                    }
+                }
+
+                function renderHistoryMatches() {
+                    const container = document.getElementById('history-matches');
+                    container.innerHTML = historyMatches.map(day => `
+                        <div class="date-section">${day.date}</div>
+                        ${day.matches.map(createMatchBoxHTML).join('')}
+                    `).join('');
+                }
+
+                renderTodayMatches();
+                renderHistoryMatches();
+                setupTabs();
+                setupCopyCode();
+            }
+        });
+    </script>
+</body>
+</html>

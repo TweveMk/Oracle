@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ORACLE - Fixed Draw</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>ORACLE - Fixed Draw</header>
+    <nav class="main-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="fixed-draw.html" class="nav-link active">Fixed Draw</a>
+        <a href="correct-score.html" class="nav-link">Correct Score</a>
+    </nav>
+    <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="today">Today's Tips</button>
+        <button class="tab-btn" data-tab="history">History</button>
+    </nav>
+    <div id="today" class="section active">
+        <div class="date-section" id="today-date"></div>
+        <div id="today-matches"></div>
+    </div>
+    <div id="history" class="section">
+        <div id="history-matches"></div>
+    </div>
+    <script src="scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const todayMatches = [
+                {
+                    country: 'EGYPT',
+                    team: 'Tanta FC vs Asyut Petroleum',
+                    pick: 'Draw',
+                    odds: 2.70,
+                    result: '---',
+                    code: '5L5A1V'
+                },
+                {
+                    country: 'EGYPT',
+                    team: 'Aswan FC vs Baladiyyat AL Mehalla',
+                    pick: 'Draw',
+                    odds: 2.65,
+                    result: '---',
+                    code: '564D0K'
+                }
+            ];
+
+            const historyMatches = [
+                {
+                    date: 'AUGUST 22, 2025',
+                    matches: [
+                        { country: 'EGYPT', team: 'El Sekka El Hadid vs El Terasanah', pick: 'Draw', odds: 2.70, result: '(0:0)won', code: '5L3F41' },
+                        { country: 'ARGENTINA', team: 'Barracas Central vs Defensa y Justicia', pick: 'Draw', odds: 3.00, result: '(1:1)won', code: '5JD6BH' }
+                    ]
+                },
+                {
+                    date: 'AUGUST 21, 2025',
+                    matches: [
+                        { country: 'EGYPT', team: 'Smouha SC vs Zed FC', pick: 'Draw', odds: 2.70, result: '(1:1)won', code: '63H1VT' },
+                        { country: 'EGYPT', team: 'Al Mokawloon Al Arab vs Haras El Hodood', pick: 'Draw', odds: 2.80, result: '(0:0)won', code: '58WPK0' }
+                    ]
+                },
+                {
+                    date: 'AUGUST 20, 2025',
+                    matches: [
+                        { country: 'EGYPT', team: 'El Gouna FC vs Ghazl El Mahallah', pick: 'Draw', odds: 2.75, result: '(0:0)won', code: '62GLMW' }
+                    ]
+                },
+                {
+                    date: 'AUGUST 18, 2025',
+                    matches: [
+                        { country: 'ARGENTINA', team: 'CA Claypole vs Justo Jose de Urquiza', pick: 'Draw', odds: 2.75, result: '(0:0)won', code: '5BJUSB' },
+                        { country: 'IRAN', team: 'Gol Gohar Sirjan FC vs Aluminium Arak', pick: 'Draw', odds: 2.80, result: '---', code: '6X52QZ' },
+                        { country: 'IRAN', team: 'Kheybar Khorramabad FC vs Mes Rafsanjan FC', pick: 'Draw', odds: 2.60, result: '---', code: '594JNE' }
+                    ]
+                },
+                {
+                    date: 'AUGUST 16, 2025',
+                    matches: [
+                        { country: 'ROMANIA', team: 'FC Petrolul Ploiesti vs AFC Hermannstadt', pick: 'Draw', odds: 3.10, result: '(1:1)won', code: '55TH9P' }
+                    ]
+                },
+                {
+                    date: 'AUGUST 15, 2025',
+                    matches: [
+                        { country: 'TUNISIA', team: 'Olympique de Beja vs AS Gabes', pick: 'Draw(0:0)', odds: 5.21, result: '(0:0)won', code: '6CBLA2' }
+                    ]
+                }
+            ];
+
+            document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+
+            function createMatchBoxHTML(match) {
+                const teamNames = match.team.split(' vs ');
+                let resultClass = match.result.includes('won') ? 'result-success' : (match.result !== '---' ? 'result-fail' : '');
+                return `
+                    <div class="match-box">
+                        <p><strong>Country:</strong> ${match.country}</p>
+                        <div>
+                            <p style="text-align:center;">${teamNames[0]}</p>
+                            <span class="team-vs">vs</span>
+                            <p style="text-align:center;">${teamNames[1] || ''}</p>
+                        </div>
+                        <p><strong>Prediction:</strong> ${match.pick}</p>
+                        <p><strong>Odds:</strong> ${match.odds}</p>
+                        <p><strong>Result:</strong> <span class="${resultClass}">${match.result}</span></p>
+                        <div class="code-box" data-code="${match.code}">SportyBet Code: ${match.code}</div>
+                    </div>
+                `;
+            }
+
+            if (todayMatches.length > 0) {
+                document.getElementById('today-matches').innerHTML = todayMatches.map(createMatchBoxHTML).join('');
+            } else {
+                document.getElementById('today-matches').innerHTML = '<div class="no-matches">No matches available today</div>';
+            }
+
+            document.getElementById('history-matches').innerHTML = historyMatches.map(day => `
+                <div class="date-section">${day.date}</div>
+                ${day.matches.map(createMatchBoxHTML).join('')}
+            `).join('');
+
+            setupTabs();
+            setupCopyCode();
+        });
+    </script>
+</body>
+</html>
